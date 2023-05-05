@@ -21,14 +21,11 @@ class SalesmanSolver(SalesmanBase, DrawGraphicsMixin):
             current_point = permutation[point]
             next_point = permutation[point + 1]
             total_distance += self.distance(point1=self.points[current_point], point2=self.points[next_point])
-        # Add distance from the last point back to the starting point
         total_distance += self.distance(point1=self.points[permutation[-1]], point2=self.points[permutation[0]])
         return total_distance
 
     @measure_execution_time
     def solve(self) -> None:
         for permutation in self.permutations:
-            current_distance = self.calculate_distance(permutation=permutation)
-            if current_distance < self.min_distance:
-                self.min_distance = current_distance
-                self.optimal_permutation = [self.points[i] for i in permutation]
+            distance = self.calculate_distance(permutation=permutation)
+            self.update_values(distance=distance, permutation=permutation)

@@ -34,14 +34,11 @@ class SalesmanSolver(SalesmanBase, DrawGraphicsMixin):
             current = min_index
 
         distance += self.distance_matrix[min_index][start]
-        permutation = [self.points[i] for i in permutation]
-
         return permutation, distance
 
     @measure_execution_time
     def solve(self) -> None:
         for i in range(self.num_points):
             permutation, distance = self.search(i)
-            if distance < self.min_distance:
-                self.min_distance = distance
-                self.optimal_permutation = permutation
+            self.update_values(distance=distance, permutation=permutation)
+
