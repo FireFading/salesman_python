@@ -1,8 +1,8 @@
-from collections.abc import Iterator
+import itertools
+
 from core.base import SalesmanBase
 from interface.output import DrawGraphicsMixin
 from utils import measure_execution_time
-import itertools
 
 
 class SalesmanSolver(SalesmanBase, DrawGraphicsMixin):
@@ -15,12 +15,8 @@ class SalesmanSolver(SalesmanBase, DrawGraphicsMixin):
         for point in range(self.num_points - 1):
             current_point = permutation[point]
             next_point = permutation[point + 1]
-            total_distance += self.distance(
-                point1=self.points[current_point], point2=self.points[next_point]
-            )
-        total_distance += self.distance(
-            point1=self.points[permutation[-1]], point2=self.points[permutation[0]]
-        )
+            total_distance += self.distance(point1=self.points[current_point], point2=self.points[next_point])
+        total_distance += self.distance(point1=self.points[permutation[-1]], point2=self.points[permutation[0]])
         return total_distance
 
     def generate_initial_permutations(self) -> list[int]:
@@ -41,15 +37,10 @@ class SalesmanSolver(SalesmanBase, DrawGraphicsMixin):
             for _ in range(num_swaps):
                 for i in range(-1, self.num_points):
                     for j in range(i + 1, self.num_points):
-                        new_permutation = self.perform_swap(
-                            permutation=list(current_permutation), i=i, j=j
-                        )
-                        new_distance = self.calculate_distance(
-                            permutation=new_permutation
-                        )
+                        new_permutation = self.perform_swap(permutation=list(current_permutation), i=i, j=j)
+                        new_distance = self.calculate_distance(permutation=new_permutation)
                         if new_distance < current_distance:
                             current_permutation = new_permutation
                             current_distance = new_distance
 
             self.update_values(distance=current_distance, permutation=current_permutation)
-

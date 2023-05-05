@@ -41,4 +41,3 @@ class SalesmanSolver(SalesmanBase, DrawGraphicsMixin):
         for i in range(self.num_points):
             permutation, distance = self.search(i)
             self.update_values(distance=distance, permutation=permutation)
-
