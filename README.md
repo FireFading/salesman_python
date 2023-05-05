@@ -7,12 +7,16 @@
 
 ## Usage
 - you can run this with or without arguments
+- for help, run `python main.py --help` or `python main.py -h`
 ```bash
-    usage: main.py [-h] [--file FILE] [--algorithm ALGORITHM]
+    usage: main.py [-h] [--file FILE] [--algorithm {approx,brute-force}]
+
+    The salesman problem solver
 
     options:
     -h, --help            show this help message and exit
-    --file FILE           Specify the file name
-    --algorithm ALGORITHM Specify the algorithm to use
+    --file FILE, -f FILE  Specify the file name
+    --algorithm {approx,brute-force}, -a {approx,brute-force}
+                            Specify the algorithm to use
 ```
 - [file with points example](points.txt) - contains two space-separated values representing the x and y coordinates of a point

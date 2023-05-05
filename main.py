@@ -12,18 +12,16 @@ class CommandManager:
 
     @staticmethod
     def get_command_args() -> tuple[str | None, str]:
-        parser = argparse.ArgumentParser()
-        parser.add_argument("--file", help="Specify the file name")
-        parser.add_argument("--algorithm", help="Specify the algorithm to use")
+        parser = argparse.ArgumentParser(description='The salesman problem solver')
+        parser.add_argument("--file", "-f", type=str, help="Specify the file name")
+        parser.add_argument("--algorithm", "-a", type=str, help="Specify the algorithm to use", choices=["approx", "brute-force"], default="approx")
         args = parser.parse_args()
-        return args.file, args.algorithm or "approx"
+        return args.file, args.algorithm
 
     def register_class(self, name: str, cls: Type[TypeSolver]) -> None:
         self.classes[name] = cls
 
     def run(self) -> None:
-        if self.algorithm not in self.classes:
-            raise ValueError("Invalid algorithm name. Try again.")
         cls: Type[TypeSolver] = self.classes[self.algorithm]
         instance = cls(file_path=self.file_path)
         instance.solve()
