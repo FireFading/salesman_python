@@ -1,0 +1,32 @@
+# python
+__pycache__
+.mypy_cache
+.nox
+.ruff_cache
+
+# environment variables
+.env
+
+# Ignore any temporary files
+tmp/
+*.tmp
+
+# Ignore any database backup files
+*.bak
+*.db.bak
+*.sqlite.bak
+
+# Ignore any editor specific files and folders
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+*.sln
+*.suo
+
+# Ignore any node_modules folder
+node_modules/
+
+# Ignore any other files that are not necessary for version control
+.DS_Store
+Thumbs.db-
