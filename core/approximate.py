@@ -1,6 +1,7 @@
 import numpy as np
 from core.base import SalesmanBase
 from interface.output import DrawGraphicsMixin
+from numba import prange
 from utils import measure_execution_time
 
 
@@ -12,8 +13,8 @@ class SalesmanSolver(SalesmanBase, DrawGraphicsMixin):
         self.calc_distance_matrix()
 
     def calc_distance_matrix(self) -> None:
-        for i in range(self.num_points):
-            for j in range(self.num_points):
+        for i in prange(self.num_points):
+            for j in prange(self.num_points):
                 point1, point2 = self.points[i], self.points[j]
                 self.distance_matrix[i][j] = self.distance(point1=point1, point2=point2)
 
@@ -38,6 +39,6 @@ class SalesmanSolver(SalesmanBase, DrawGraphicsMixin):
 
     @measure_execution_time
     def solve(self) -> None:
-        for i in range(self.num_points):
+        for i in prange(self.num_points):
             permutation, distance = self.search(i)
             self.update_values(distance=distance, permutation=permutation)

@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 
 class InputHelper:
     def __init__(self, file_path: str | None = None):
-        self.points: list[tuple[int, int]] = []
+        self.points: list[tuple[float, float]] = []
         if file_path:
             self.read_from_file(file_path=file_path)
         else:

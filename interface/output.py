@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+from numba import prange
 
 
 class DrawGraphicsMixin:
@@ -9,8 +10,8 @@ class DrawGraphicsMixin:
 
         plt.scatter(x, y, color="blue")
         plt.plot(
-            x[[*range(self.num_points), 0]],
-            y[[*range(self.num_points), 0]],
+            x[[*prange(self.num_points), 0]],
+            y[[*prange(self.num_points), 0]],
             color="red",
         )
 

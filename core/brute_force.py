@@ -3,6 +3,7 @@ from collections.abc import Iterator
 
 from core.base import SalesmanBase
 from interface.output import DrawGraphicsMixin
+from numba import prange
 from utils import measure_execution_time
 
 
@@ -12,12 +13,12 @@ class SalesmanSolver(SalesmanBase, DrawGraphicsMixin):
         self.permutations = self.get_permutation()
 
     def get_permutation(self) -> Iterator[int]:
-        indices = tuple(range(self.num_points))
+        indices = tuple(prange(self.num_points))
         return itertools.permutations(indices)
 
     def calculate_distance(self, permutation: tuple[int]) -> float:
         total_distance = 0
-        for point in range(self.num_points - 1):
+        for point in prange(self.num_points - 1):
             current_point = permutation[point]
             next_point = permutation[point + 1]
             total_distance += self.distance(point1=self.points[current_point], point2=self.points[next_point])

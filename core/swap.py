@@ -2,6 +2,7 @@ import itertools
 
 from core.base import SalesmanBase
 from interface.output import DrawGraphicsMixin
+from numba import prange
 from utils import measure_execution_time
 
 
@@ -12,7 +13,7 @@ class SalesmanSolver(SalesmanBase, DrawGraphicsMixin):
 
     def calculate_distance(self, permutation: list[str]) -> float:
         total_distance = 0
-        for point in range(self.num_points - 1):
+        for point in prange(self.num_points - 1):
             current_point = permutation[point]
             next_point = permutation[point + 1]
             total_distance += self.distance(point1=self.points[current_point], point2=self.points[next_point])
@@ -20,7 +21,7 @@ class SalesmanSolver(SalesmanBase, DrawGraphicsMixin):
         return total_distance
 
     def generate_initial_permutations(self) -> list[int]:
-        indices = tuple(range(self.num_points))
+        indices = tuple(prange(self.num_points))
         return list(itertools.islice(itertools.permutations(indices), self.num_points))
 
     def perform_swap(self, permutation: list[int], i: int, j: int) -> list[int]:
@@ -34,9 +35,9 @@ class SalesmanSolver(SalesmanBase, DrawGraphicsMixin):
             current_permutation = initial_permutation[:]
             current_distance = self.calculate_distance(permutation=current_permutation)
 
-            for _ in range(num_swaps):
-                for i in range(-1, self.num_points):
-                    for j in range(i + 1, self.num_points):
+            for _ in prange(num_swaps):
+                for i in prange(-1, self.num_points):
+                    for j in prange(i + 1, self.num_points):
                         new_permutation = self.perform_swap(permutation=list(current_permutation), i=i, j=j)
                         new_distance = self.calculate_distance(permutation=new_permutation)
                         if new_distance < current_distance:
