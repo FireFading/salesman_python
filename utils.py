@@ -3,6 +3,15 @@ from functools import wraps
 
 
 def measure_execution_time(func):
+    """
+    A decorator function that measures the execution time of a given function.
+
+    Args:
+    - func: The function to measure execution time for.
+
+    Returns:
+    - wrapper: The wrapped function that measures execution time.
+    """
     @wraps(func)
     def wrapper(*args, **kwargs):
         start_time = time.perf_counter()

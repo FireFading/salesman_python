@@ -3,7 +3,17 @@ from numba import prange
 
 
 class DrawGraphicsMixin:
+    """
+    A mixin class for drawing graphics for a given set of points and optimal path.
+
+    """
+
     def graphics(self) -> None:
+        """
+        Draw a scatter plot of the points, plots the optimal path,
+        and displays the minimum distance of the optimal path.
+
+        """
         plt.figure(figsize=(8, 6))
         x = self.points[:, 0]
         y = self.points[:, 1]
